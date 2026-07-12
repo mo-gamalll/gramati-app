@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أسعار الذهب</title>
+</head>
+<body style="text-align: center; font-family: sans-serif; padding-top: 50px;">
+    <h1>أسعار الذهب اليوم</h1>
+    <div id="price">جاري التحميل...</div>
+    <script>
+        fetch('/api/gold-prices')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('price').innerText = "عيار 21: " + data.gold21;
+            });
+    </script>
+</body>
+</html>
