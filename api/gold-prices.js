@@ -1,13 +1,14 @@
 export default async function handler(req, res) {
   try {
-    // رابط بيانات بديل يعمل بصيغة JSON
-    const response = await fetch('https://gold-api.vercel.app/api/gold');
-    const data = await response.json();
-
-    // نرسل البيانات بصيغة JSON لتطبيقك
-    res.status(200).json(data);
+    const response = await fetch('https://market.isagha.com/prices');
+    const text = await response.text();
+    
+    // هذا سيطبع لنا في سجلات Vercel ما الذي يأتي فعلياً من الموقع
+    console.log("Response length:", text.length);
+    
+    // إرجاع رد تجريبي للتطبيق حتى لا ينهار
+    res.status(200).json({ buy: "100", sell: "100", message: "تم الاتصال" });
   } catch (error) {
-    // في حال فشل الاتصال، نرسل هيكل بيانات وهمي حتى لا ينهار الموقع
-    res.status(200).json({ buy: "0", sell: "0" });
+    res.status(500).json({ error: error.message });
   }
 }
